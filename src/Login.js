@@ -1,0 +1,85 @@
+/**
+ * Vídeo #1 ao #4: Redux - Módulo 15 - Redux - B7Web
+ * Exemplo do uso de Redux.
+ * by: Vagner Pinto
+ */
+
+import React from 'react';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
+
+export class Login extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state={};
+
+        this.entrar = this.entrar.bind(this);
+    }
+
+    entrar(){
+        alert('Logou!!!');
+    }
+
+    render(){ //o atributo value usa a conexão com o reducer
+        return (
+            <View style={styles.container}>
+                <View style={styles.body}>
+                    <Text>Email:</Text>
+                    <TextInput value={this.props.email} style={styles.input} onChangeText={()=>{}} />
+                    <Text>Senha:</Text>
+                    <TextInput value={this.props.senha} secureTextEntry={true} style={styles.input} onChangeText={()=>{}} />
+                    <TouchableOpacity style={styles.buttonLogin} onPress={this.entrar}>
+                        <Text style={styles.textButton}>Entrar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container:{
+        margin:10,
+        flex:1
+    },
+    body:{
+        margin:10,
+        flex:3
+    },
+    header:{
+        margin:10,
+        flex:1,
+        justifyContent:'center',
+        alignItems: 'center'
+    },
+    image:{
+        width:120,
+        height:120
+    },
+    input:{
+        height:40,
+        borderWidth:1,
+        borderColor:'#997788',
+        marginBottom:10
+    },
+    buttonLogin: {
+        alignItems: "center",
+        backgroundColor: "#997788",
+        padding:10,
+        margin:10
+    },
+    textButton:{
+        fontSize:16,
+        color:'#ffffff'
+    }
+});
+
+const mapStateToProps = (state) =>{ //mapeia os props do reducer com esse componente
+    return {
+      email:state.auth.email,
+      senha:state.auth.senha
+    };
+};
+const LoginConnect = connect(mapStateToProps)(Login); //conecta os dois componentes (suas props)
+export default LoginConnect; //exporta o componente como padrão

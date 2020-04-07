@@ -5,13 +5,19 @@
  */
 
 const initialState = {
-    email:'email@email.com.br',
-    senha:'123456'
+    email:'',
+    senha:''
 };
 
 const AuthReducer = (state=[], action) => {
     if(state.length == 0){
         return initialState;
+    }
+    if(action.type == 'editEmail'){
+        return {...state, email:action.payload.email};
+    }
+    if(action.type == 'editSenha'){
+        return {...state, senha:action.payload.senha};
     }
 
     return state;

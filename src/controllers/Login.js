@@ -7,6 +7,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import {editEmail, editSenha} from '../actions/AuthActions';
 
 export class Login extends React.Component{
 
@@ -26,9 +27,9 @@ export class Login extends React.Component{
             <View style={styles.container}>
                 <View style={styles.body}>
                     <Text>Email:</Text>
-                    <TextInput value={this.props.email} style={styles.input} onChangeText={()=>{}} />
+                    <TextInput value={this.props.email} style={styles.input} onChangeText={(text)=>{this.props.editEmail(text)}} />
                     <Text>Senha:</Text>
-                    <TextInput value={this.props.senha} secureTextEntry={true} style={styles.input} onChangeText={()=>{}} />
+                    <TextInput value={this.props.senha} style={styles.input} onChangeText={(text)=>{this.props.editSenha(text)}} />
                     <TouchableOpacity style={styles.buttonLogin} onPress={this.entrar}>
                         <Text style={styles.textButton}>Entrar</Text>
                     </TouchableOpacity>
@@ -81,5 +82,5 @@ const mapStateToProps = (state) =>{ //mapeia os props do reducer com esse compon
       senha:state.auth.senha
     };
 };
-const LoginConnect = connect(mapStateToProps)(Login); //conecta os dois componentes (suas props)
+const LoginConnect = connect(mapStateToProps, {editEmail, editSenha})(Login); //conecta os dois componentes (suas props, nesse exemplo, Reducer com TextInput)
 export default LoginConnect; //exporta o componente como padrão

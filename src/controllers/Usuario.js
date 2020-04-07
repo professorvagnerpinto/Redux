@@ -7,6 +7,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import {editEmail, editSenha} from '../actions/AuthActions';
 
 export class Usuario extends React.Component{ //retirar o default, ele vai para o final, o redux é que será o default
 
@@ -24,11 +25,11 @@ export class Usuario extends React.Component{ //retirar o default, ele vai para 
             <View style={styles.container}>
                 <View style={styles.body}>
                     <Text>Email:</Text>
-                    <TextInput value={this.props.email} style={styles.input} onChangeText={()=>{}} />
+                    <TextInput value={this.props.email} style={styles.input} onChangeText={(text)=>{this.props.editEmail(text)}} />
                     <Text>Senha:</Text>
-                    <TextInput value={this.props.senha} secureTextEntry={true} style={styles.input} onChangeText={()=>{}} />
+                    <TextInput value={this.props.senha} style={styles.input} onChangeText={(text)=>{this.props.editSenha(text)}} />
                     <Text>Confirmar Senha:</Text>
-                    <TextInput value={this.props.senha} secureTextEntry={true} style={styles.input} onChangeText={()=>{}} />
+                    <TextInput value={this.props.senha} style={styles.input} onChangeText={(text)=>{this.props.editSenha(text)}} />
                     <TouchableOpacity style={styles.buttonCadastrar} onPress={this.cadastar}>
                         <Text style={styles.textButton}>Cadastrar</Text>
                     </TouchableOpacity>
@@ -81,6 +82,6 @@ const mapStateToProps = (state) => { //mapeia os props do reducer com esse compo
         senha:state.auth.senha
     };
 };
-const UsuarioConnect = connect(mapStateToProps)(Usuario); //conecta os dois componentes (suas props)
+const UsuarioConnect = connect(mapStateToProps, {editEmail, editSenha})(Usuario); //conecta os dois componentes (suas props)
 export default UsuarioConnect; //exporta o componente como padrão
 

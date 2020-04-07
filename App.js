@@ -16,9 +16,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-import Home from './src/Home';
-import Login from './src/Login';
-import Usuario from './src/Usuario';
+import Home from './src/controllers/Home';
+import Login from './src/controllers/Login';
+import Usuario from './src/controllers/Usuario';
 import Reducers from './src/reducers/Reducers';
 
 let store = createStore(Reducers); //redux

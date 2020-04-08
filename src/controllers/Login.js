@@ -7,19 +7,13 @@
 import React from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {editEmail, editSenha} from '../actions/AuthActions';
+import {editEmail, editSenha, entrar} from '../actions/AuthActions';
 
-export class Login extends React.Component{
+export class Login extends React.Component{ //retirar o default, ele vai para o final, o redux é que será o default
 
     constructor(props){
         super(props);
         this.state={};
-
-        this.entrar = this.entrar.bind(this);
-    }
-
-    entrar(){
-        alert('Logou!!!');
     }
 
     render(){ //o atributo value usa a conexão com o reducer
@@ -30,7 +24,7 @@ export class Login extends React.Component{
                     <TextInput value={this.props.email} style={styles.input} onChangeText={(text)=>{this.props.editEmail(text)}} />
                     <Text>Senha:</Text>
                     <TextInput value={this.props.senha} style={styles.input} onChangeText={(text)=>{this.props.editSenha(text)}} />
-                    <TouchableOpacity style={styles.buttonLogin} onPress={this.entrar}>
+                    <TouchableOpacity style={styles.buttonLogin} onPress={() => {this.props.entrar(this.props.email, this.props.senha)}}>
                         <Text style={styles.textButton}>Entrar</Text>
                     </TouchableOpacity>
                 </View>
@@ -76,11 +70,11 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) =>{ //mapeia os props do reducer com esse componente
+const mapStateToProps = (state) =>{ //mapeia os states do reducer para as props desse componente
     return {
       email:state.auth.email,
       senha:state.auth.senha
     };
 };
-const LoginConnect = connect(mapStateToProps, {editEmail, editSenha})(Login); //conecta os dois componentes (suas props, nesse exemplo, Reducer com TextInput)
+const LoginConnect = connect(mapStateToProps, {editEmail, editSenha, entrar})(Login); //conecta os dois componentes (suas props, nesse exemplo, Reducer com TextInput)
 export default LoginConnect; //exporta o componente como padrão

@@ -5,8 +5,8 @@
  */
 
 const initialState = {
-    email:'',
-    senha:''
+    email:'ana@email.com',
+    senha:'teste123'
 };
 
 const AuthReducer = (state=[], action) => {
@@ -18,6 +18,22 @@ const AuthReducer = (state=[], action) => {
     }
     if(action.type == 'editSenha'){
         return {...state, senha:action.payload.senha};
+    }
+    if(action.type == 'cadastroSucesso'){
+        alert('Cadastrado com sucesso.');
+        return state;
+    }
+    if(action.type == 'cadastroErro'){
+        alert('Erro retornado: ' + action.payload.code);
+        return state;
+    }
+    if(action.type == 'loginSucesso'){
+        alert('Usuario logado com sucesso.');
+        return state;
+    }
+    if(action.type == 'loginErro'){
+        alert('Erro retornado: ' + action.payload.code);
+        return state;
     }
 
     return state;

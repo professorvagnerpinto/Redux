@@ -7,17 +7,13 @@
 import React from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {editEmail, editSenha} from '../actions/AuthActions';
+import {editEmail, editSenha, cadastrar} from '../actions/AuthActions';
 
 export class Usuario extends React.Component{ //retirar o default, ele vai para o final, o redux é que será o default
 
     constructor(props){
         super(props);
         this.state={};
-    }
-
-    cadastar(){
-        alert('Cadastrou!!!');
     }
 
     render(){
@@ -30,7 +26,7 @@ export class Usuario extends React.Component{ //retirar o default, ele vai para 
                     <TextInput value={this.props.senha} style={styles.input} onChangeText={(text)=>{this.props.editSenha(text)}} />
                     <Text>Confirmar Senha:</Text>
                     <TextInput value={this.props.senha} style={styles.input} onChangeText={(text)=>{this.props.editSenha(text)}} />
-                    <TouchableOpacity style={styles.buttonCadastrar} onPress={this.cadastar}>
+                    <TouchableOpacity style={styles.buttonCadastrar} onPress={()=>{this.props.cadastrar(this.props.email, this.props.senha)}}>
                         <Text style={styles.textButton}>Cadastrar</Text>
                     </TouchableOpacity>
                 </View>
@@ -76,12 +72,12 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => { //mapeia os props do reducer com esse componente
+const mapStateToProps = (state) => { //mapeia os states do reducer para as props desse componente
     return {
         email:state.auth.email,
         senha:state.auth.senha
     };
 };
-const UsuarioConnect = connect(mapStateToProps, {editEmail, editSenha})(Usuario); //conecta os dois componentes (suas props)
+const UsuarioConnect = connect(mapStateToProps, {editEmail, editSenha, cadastrar})(Usuario); //conecta os dois componentes (suas props)
 export default UsuarioConnect; //exporta o componente como padrão
 
